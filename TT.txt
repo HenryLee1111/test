@@ -1,0 +1,58 @@
+A.1
+mydata = read.csv(file = "diabetes.csv", header = T, row.names = 1)
+x = data.frame(mydata)
+head(x, 6)
+
+A.2
+plot(mydata$wt, mydata$a1c, main = "weight vs alc")
+
+A.3
+boxplot(mydata$wt, main = "boxplot of the weight")
+
+A.4
+stem(mydata$wt)
+
+A.5
+model = lm(mydata$wt~mydata$a1c)
+summary(model)
+
+A.6
+res = resid(model)
+plot(fitted(model), res)
+
+A.7
+qqnorm(rstandard(model))
+qqline(rstandard(model))
+
+A.8
+library(MASS)
+boxcox(model, lambda=seq(-2,2,0.1),plotit = TRUE,eps = 1/50 )
+他出來是圖，你要自己找離最高點最近的LAMBDA整數值
+我找到值是0
+model2 = lm(mydata$wt~log((mydata$a1c)))  #log()=ln
+summary(model2)
+B0 = 47.418
+B1 = 9.309
+==========================================================================
+D.
+mydata4 = read.csv(file = "solution.csv", header = T)
+y = data.frame(mydata4)
+
+full <- lm(X ~ poly(Y,2), data=mydata4)
+reduced <- lm(X ~ Y, data=mydata4)
+
+anova(full, reduced)
+==========================================================================
+C.
+library(onesidetests)
+data=read.csv(file="plastic hardness.csv",header=T,sep=",", na.strings="NA", fill=T)
+bf.tests(Y~X, data, alpha = 0.05, na.rm = TRUE, verbose = TRUE)
+==========================================================================
+B. 
+
+	data=read.csv(file="musclemass.csv",header=T,sep=",", na.strings="NA", fill=T)
+	aov.out = aov(Y~X, data) 
+	summary(aov.out)
+	
+	fit = lm(Y~X, data)
+	summary(fit)
